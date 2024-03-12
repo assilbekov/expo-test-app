@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { LegacyRef, useRef, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
+import { captureRef } from 'react-native-view-shot';
 import * as ImagePicker from 'expo-image-picker';
+import * as MediaLibrary from 'expo-media-library';
 import { Button } from '@/Button';
 import { ImageViewer } from '@/ImageViewer';
 import { IconButton } from '@/IconButton';
@@ -14,6 +16,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const PlaceholderImage = require('./assets/background-image.png');
 
 export default function App() {
+  const imageRef = useRef();
   const [pickedEmoji, setPickedEmoji] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAppOptions, setShowAppOptions] = useState(false);
@@ -41,20 +44,34 @@ export default function App() {
     setIsModalVisible(true);
   };
 
-  const onSaveImageAsync = async () => {
-    // we will implement this later
-  };
-
   const onModalClose = () => {
     setIsModalVisible(false);
+  };
+
+  const onSaveImageAsync = async () => {
+    try {
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      });
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if (localUri) {
+        alert("Saved!");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
 
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.imageContainer}>
-        <ImageViewer placeholderImageSource={PlaceholderImage} selectedImage={selectedImage} />
-        {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+        <View ref={imageRef as any} collapsable={false}>
+          <ImageViewer placeholderImageSource={PlaceholderImage} selectedImage={selectedImage} />
+          {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+        </View>
       </View>
       {showAppOptions ? (
         <View style={styles.optionsContainer}>
