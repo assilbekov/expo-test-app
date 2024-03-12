@@ -4,7 +4,7 @@ type ImageViewerProps = {
   placeholderImageSource?: ImageSourcePropType
 }
 
-export default function ImageViewer({ placeholderImageSource }: ImageViewerProps) {
+export function ImageViewer({ placeholderImageSource }: ImageViewerProps) {
   return (
     <Image source={placeholderImageSource} style={styles.image} />
   );
