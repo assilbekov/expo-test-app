@@ -9,6 +9,7 @@ import { CircleButton } from '@/CircleButton';
 import { EmojiPicker } from '@/EmojiPicker';
 import { EmojiList } from '@/EmojiList';
 import { EmojiSticker } from '@/EmojiSticker';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const PlaceholderImage = require('./assets/background-image.png');
 
@@ -37,7 +38,7 @@ export default function App() {
   };
 
   const onAddSticker = () => {
-    // we will implement this later
+    setIsModalVisible(true);
   };
 
   const onSaveImageAsync = async () => {
@@ -50,7 +51,7 @@ export default function App() {
 
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <View style={styles.imageContainer}>
         <ImageViewer placeholderImageSource={PlaceholderImage} selectedImage={selectedImage} />
         {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
@@ -73,7 +74,7 @@ export default function App() {
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
         <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
       </EmojiPicker>
-    </View>
+    </GestureHandlerRootView>
   );
 }
 
