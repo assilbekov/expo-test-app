@@ -2088,6 +2088,11 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
+"@types/dom-to-image@^2.6.7":
+  version "2.6.7"
+  resolved "https://registry.npmjs.org/@types/dom-to-image/-/dom-to-image-2.6.7.tgz"
+  integrity sha512-me5VbCv+fcXozblWwG13krNBvuEOm6kA5xoa4RrjDJCNFOZSWR3/QLtOXimBHk1Fisq69Gx3JtOoXtg1N1tijg==
+
 "@types/hammerjs@^2.0.36":
   version "2.0.45"
   resolved "https://registry.npmjs.org/@types/hammerjs/-/hammerjs-2.0.45.tgz"
