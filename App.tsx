@@ -7,10 +7,12 @@ import { ImageViewer } from '@/ImageViewer';
 import { IconButton } from '@/IconButton';
 import { CircleButton } from '@/CircleButton';
 import { EmojiPicker } from '@/EmojiPicker';
+import { EmojiList } from '@/EmojiList';
 
 const PlaceholderImage = require('./assets/background-image.png');
 
 export default function App() {
+  const [pickedEmoji, setPickedEmoji] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAppOptions, setShowAppOptions] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -67,7 +69,7 @@ export default function App() {
       )}
       <StatusBar style="auto" />
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
-        {/* we will implement this later */}j
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
       </EmojiPicker>
     </View>
   );
